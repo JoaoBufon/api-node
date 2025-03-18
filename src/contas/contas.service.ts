@@ -17,15 +17,15 @@ export class ContasService {
     }
   
     create(conta: any)  {
-
+        return "criou o objeto"
     }
   
     async update(id: number, conta: any)  {
-
+        return "editou o objeto"
     }
   
     async remove(id: number)  {
-        
+        return "removeu o objeto"
     }
 }
 
