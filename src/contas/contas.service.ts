@@ -1,31 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { retry } from 'rxjs';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Contas } from 'src/schema/contas.schema';
+import { CreateContaDto } from './dto/create-conta.dto';
+import { UpdateContaDto } from './dto/update-conta.dto';
+import { Injectable } from '@nestjs/common/decorators/core/injectable.decorator';
 
 @Injectable()
 export class ContasService {
+  constructor(@InjectModel(Contas.name) private contaModel: Model<Contas>) {}
+  create(conta: CreateContaDto)  {
+    const createdConta = new this.contaModel(conta);
+    return createdConta.save();
+  }
 
-    constructor() {
+  findAll()  {
+    return this.contaModel.find().exec();
+  }
 
+  findOne(numero: Number | undefined)  {
+    if (numero === undefined){
+        return null;
     }
+    return this.contaModel.findOne({ numero: Number }).exec();
+  }
 
-    findAll(){
-        return "encontrou todos os objetos"
-    }
+  async update(numero: number, updateContaDto: UpdateContaDto)  {
+    const conta = await this.contaModel.findOneAndUpdate({ numero: Number }, updateContaDto).exec();
+    return conta
+  }
 
-    findOne(id: Number){
-        return "encontrou o objeto"
-    }
-  
-    create(conta: any)  {
-        return "criou o objeto"
-    }
-  
-    async update(id: number, conta: any)  {
-        return "editou o objeto"
-    }
-  
-    async remove(id: number)  {
-        return "removeu o objeto"
-    }
+  async remove(id: number)  {
+    const conta = await this.contaModel.findOneAndDelete({ numero: Number }).exec();
+    return conta;
+  }
 }
-
