@@ -19,7 +19,7 @@ export class ContasService {
 
   findOne(numero: Number | undefined)  {
     if (numero === undefined){
-        return null;
+        return 'Necessario informar o numero da conta';
     }
     return this.contaModel.findOne({ numero: Number }).exec();
   }
