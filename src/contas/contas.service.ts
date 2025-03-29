@@ -1,6 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Contas } from 'src/schema/contas.schema';
+import { Contas } from 'src/schemas/contas.schema';
 import { CreateContaDto } from './dto/create-conta.dto';
 import { UpdateContaDto } from './dto/update-conta.dto';
 import { Injectable } from '@nestjs/common/decorators/core/injectable.decorator';
