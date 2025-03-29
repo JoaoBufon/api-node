@@ -7,7 +7,10 @@ import { Injectable } from '@nestjs/common/decorators/core/injectable.decorator'
 
 @Injectable()
 export class ContasService {
-  constructor(@InjectModel(Contas.name) private contaModel: Model<Contas>) {}
+  constructor(
+    @InjectModel(Contas.name) private contaModel: Model<Contas>
+  ) {}
+
   create(conta: CreateContaDto)  {
     const createdConta = new this.contaModel(conta);
     return createdConta.save();
