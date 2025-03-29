@@ -6,9 +6,22 @@ import { ClientesModule } from './clientes/clientes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [ContasModule, ClientesModule, MongooseModule.forRoot('mongodb+srv://jvbufon75:<db_password>@projeto-api-node.rqwcs.mongodb.net/?retryWrites=true&w=majority&appName=projeto-api-node')],
+  imports: [ConfigModule.forRoot(),
+    ContasModule,
+    ClientesModule,
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      connectionName: 'test',
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get('MONGODB_URL'),
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
+    })],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
 })
