@@ -10,19 +10,19 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [ConfigModule.forRoot(),
-    ContasModule,
-    ClientesModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      connectionName: 'test',
       useFactory: async (config: ConfigService) => ({
         uri: config.get('MONGODB_URL'),
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
       }),
       inject: [ConfigService],
-    })],
+    }),
+    ContasModule,
+    ClientesModule,
+  ],
+
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
+  exports: [AuthService],
 })
 export class AppModule {}
