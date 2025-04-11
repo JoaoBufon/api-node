@@ -16,8 +16,8 @@ export class ClientesController {
         return this.clientesService.findAll();
     }
 
-    @Get(':numero')
-    findOne(@Param('numero') updateClienteDto: UpdateClienteDto) {
+    @Get(':idCliente')
+    findOne(@Param('idCliente') updateClienteDto: UpdateClienteDto) {
         return this.clientesService.findOne(updateClienteDto.idCliente);
     }
 
