@@ -1,10 +1,11 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { ClientesService } from './clientes.service';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 
+@ApiTags('Clientes')
 @Controller('clientes')
 @UseGuards(AuthGuard)
 export class ClientesController {
